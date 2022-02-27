@@ -1,0 +1,7 @@
+[AppStream]
+name=Qcloud centos AppStream - $basearch
+baseurl=http://mirrors.tencent.com/centos/$releasever-stream/AppStream/$basearch/os/
+enabled=0
+gpgcheck=1
+gpgkey=http://mirrors.tencent.com/centos/RPM-GPG-KEY-CentOS-Official
+

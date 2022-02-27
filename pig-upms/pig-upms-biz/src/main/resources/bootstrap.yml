@@ -1,6 +1,12 @@
 server:
   port: 4000
 
+security:
+  oauth2:
+    client:
+      client-id: ENC(imENTO7M8bLO38LFSIxnzw==)
+      client-secret: ENC(i3cDFhs26sa2Ucrfz2hnQw==)
+      scope: server
 spring:
   application:
     name: @artifactId@

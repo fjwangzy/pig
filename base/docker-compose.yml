@@ -1,13 +1,13 @@
 version: '3'
 services:
   pig-mysql:
-    build:
-      context: ./db
+    container_name: pig-mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
     restart: always
-    container_name: pig-mysql
     image: fjwangzy/pig-mysql
+    volumes:
+      - ./data/mysql:/var/lib/mysql
     ports:
       - 3306:3306
 
@@ -20,8 +20,6 @@ services:
     hostname: pig-redis
 
   pig-register:
-    build:
-      context: ./pig-register
     restart: always
     ports:
       - 8848:8848
@@ -35,9 +33,6 @@ services:
       - pig-redis
 
   pig-gateway:
-    build:
-      context: ./pig-gateway
-    restart: always
     ports:
       - 9999:9999
     container_name: pig-gateway
@@ -47,8 +42,6 @@ services:
       - pig-register
 
   pig-auth:
-    build:
-      context: ./pig-auth
     restart: always
     container_name: pig-auth
     hostname: pig-auth
@@ -57,8 +50,6 @@ services:
       - pig-gateway
 
   pig-upms:
-    build:
-      context: ./pig-upms/pig-upms-biz
     restart: always
     container_name: pig-upms
     hostname: pig-upms
@@ -66,17 +57,15 @@ services:
     depends_on:
       - pig-gateway
 
-  pig-monitor:
-    build:
-      context: ./pig-visual/pig-monitor
-    restart: always
-    ports:
-      - 5001:5001
-    container_name: pig-monitor
-    hostname: pig-monitor
-    image: fjwangzy/pig-monitor
-    depends_on:
-      - pig-gateway
+  # pig-monitor:
+  #   restart: always
+  #   ports:
+  #     - 5001:5001
+  #   container_name: pig-monitor
+  #   hostname: pig-monitor
+  #   image: fjwangzy/pig-monitor
+  #   depends_on:
+  #     - pig-gateway
 
   # pig-sentinel:
   #   build:
@@ -98,8 +87,6 @@ services:
       - pig-gateway
 
   pig-job:
-    build:
-      context: ./pig-visual/pig-xxl-job-admin
     restart: always
     container_name: pig-job
     hostname: pig-job
